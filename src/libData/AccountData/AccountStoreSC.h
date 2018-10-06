@@ -27,78 +27,78 @@
 
 static boost::multiprecision::uint256_t DEFAULT_GASUSED = 0;
 
-template<class MAP> class AccountStoreSC;
+template <class MAP>
+class AccountStoreSC;
 
-template<class MAP>
+template <class MAP>
 class AccountStoreAtomic
-    : public AccountStoreBase<std::unordered_map<Address, Account>>
-{
-    AccountStoreSC<MAP>& m_parent;
+    : public AccountStoreBase<std::unordered_map<Address, Account>> {
+  AccountStoreSC<MAP>& m_parent;
 
-public:
-    AccountStoreAtomic(AccountStoreSC<MAP>& parent);
+ public:
+  AccountStoreAtomic(AccountStoreSC<MAP>& parent);
 
-    Account* GetAccount(const Address& address) override;
+  Account* GetAccount(const Address& address) override;
 
-    const std::shared_ptr<std::unordered_map<Address, Account>>&
-    GetAddressToAccount();
+  const std::shared_ptr<std::unordered_map<Address, Account>>&
+  GetAddressToAccount();
 };
 
-template<class MAP> class AccountStoreSC : public AccountStoreBase<MAP>
-{
-    std::unique_ptr<AccountStoreAtomic<MAP>> m_accountStoreAtomic;
+template <class MAP>
+class AccountStoreSC : public AccountStoreBase<MAP> {
+  std::unique_ptr<AccountStoreAtomic<MAP>> m_accountStoreAtomic;
 
-    std::mutex m_mutexUpdateAccounts;
+  std::mutex m_mutexUpdateAccounts;
 
-    uint64_t m_curBlockNum;
-    Address m_curContractAddr;
-    Address m_curSenderAddr;
-    boost::multiprecision::uint256_t m_curAmount;
-    boost::multiprecision::uint256_t m_curGasCum;
-    boost::multiprecision::uint256_t m_curGasLimit;
-    boost::multiprecision::uint256_t m_curGasPrice;
-    unsigned int m_curNumShards;
-    bool m_curIsDS;
-    TransactionReceipt m_curTranReceipt;
+  uint64_t m_curBlockNum;
+  Address m_curContractAddr;
+  Address m_curSenderAddr;
+  boost::multiprecision::uint256_t m_curAmount;
+  boost::multiprecision::uint256_t m_curGasCum;
+  boost::multiprecision::uint256_t m_curGasLimit;
+  boost::multiprecision::uint256_t m_curGasPrice;
+  unsigned int m_curNumShards;
+  bool m_curIsDS;
+  TransactionReceipt m_curTranReceipt;
 
-    bool ParseCreateContractOutput();
-    bool ParseCreateContractJsonOutput(const Json::Value& _json);
-    bool ParseCallContractOutput();
-    bool ParseCallContractJsonOutput(const Json::Value& _json);
-    Json::Value GetBlockStateJson(const uint64_t& BlockNum) const;
-    std::string GetCreateContractCmdStr();
-    std::string GetCallContractCmdStr();
+  bool ParseCreateContractOutput();
+  bool ParseCreateContractJsonOutput(const Json::Value& _json);
+  bool ParseCallContractOutput();
+  bool ParseCallContractJsonOutput(const Json::Value& _json);
+  Json::Value GetBlockStateJson(const uint64_t& BlockNum) const;
+  std::string GetCreateContractCmdStr();
+  std::string GetCallContractCmdStr();
 
-    // Generate input for interpreter to check the correctness of contract
-    void ExportCreateContractFiles(const Account& contract);
+  // Generate input for interpreter to check the correctness of contract
+  void ExportCreateContractFiles(const Account& contract);
 
-    void ExportContractFiles(const Account& contract);
-    bool ExportCallContractFiles(const Account& contract,
-                                 const Transaction& transaction);
-    void ExportCallContractFiles(const Account& contract,
-                                 const Json::Value& contractData);
+  void ExportContractFiles(const Account& contract);
+  bool ExportCallContractFiles(const Account& contract,
+                               const Transaction& transaction);
+  void ExportCallContractFiles(const Account& contract,
+                               const Json::Value& contractData);
 
-    bool TransferBalanceAtomic(const Address& from, const Address& to,
-                               const boost::multiprecision::uint256_t& delta);
-    void CommitTransferBalanceAtomic();
-    void DiscardTransferBalanceAtomic();
+  bool TransferBalanceAtomic(const Address& from, const Address& to,
+                             const boost::multiprecision::uint256_t& delta);
+  void CommitTransferBalanceAtomic();
+  void DiscardTransferBalanceAtomic();
 
-    bool CheckGasExceededLimit(const boost::multiprecision::uint256_t& gas);
+  bool CheckGasExceededLimit(const boost::multiprecision::uint256_t& gas);
 
-    boost::multiprecision::uint256_t CalculateGas();
+  boost::multiprecision::uint256_t CalculateGas();
 
-protected:
-    AccountStoreSC();
+ protected:
+  AccountStoreSC();
 
-public:
-    void Init() override;
+ public:
+  void Init() override;
 
-    bool UpdateAccounts(const uint64_t& blockNum, const unsigned int& numShards,
-                        const bool& isDS, const Transaction& transaction,
-                        TransactionReceipt& receipt);
+  bool UpdateAccounts(const uint64_t& blockNum, const unsigned int& numShards,
+                      const bool& isDS, const Transaction& transaction,
+                      TransactionReceipt& receipt);
 };
 
 #include "AccountStoreAtomic.tpp"
 #include "AccountStoreSC.tpp"
 
-#endif // __ACCOUNTSTORESC_H__
+#endif  // __ACCOUNTSTORESC_H__
