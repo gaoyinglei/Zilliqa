@@ -39,7 +39,7 @@ do
         CMAKE_EXTRA_OPTIONS="-DADDRESS_SANITIZER=ON ${CMAKE_EXTRA_OPTIONS}"
         echo "Build with AddressSanitizer"
     ;;
-    llvmextra)
+    style)
         CMAKE_EXTRA_OPTIONS="-DLLVM_EXTRA_TOOLS=ON ${CMAKE_EXTRA_OPTIONS}"
         run_clang_format_fix=1
         echo "Build with LLVM Extra Tools for codying style check"
@@ -53,7 +53,7 @@ do
         echo "Build with Fallback test"
     ;;
     *)
-        echo "Usage $0 [cuda|opencl] [tsan|asan] [llvmextra] [heartbeattest] [fallbacktest]"
+        echo "Usage $0 [cuda|opencl] [tsan|asan] [style] [heartbeattest] [fallbacktest]"
         exit 1
     ;;
     esac
