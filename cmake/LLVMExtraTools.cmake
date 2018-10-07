@@ -117,6 +117,7 @@ if(CLANG_TIDY)
             -header-filter ${HEADER_DIR_REGEX}
             -style='file'
             -warnings-as-errors='*'
+            -extra-arg='-Wno-error'
             ${ALL_CXX_SOURCES}
         )
         if(CLANG_APPLY_REPLACEMENTS)
@@ -131,6 +132,7 @@ if(CLANG_TIDY)
                 -config=''
                 -header-filter ${HEADER_DIR_REGEX}
                 -style='file'
+                -extra-arg='-Wno-error'
                 ${ALL_CXX_SOURCES}
             )
         endif()
