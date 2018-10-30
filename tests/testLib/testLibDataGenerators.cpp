@@ -22,11 +22,6 @@
 using namespace std;
 using namespace boost::multiprecision;
 
-template <typename T>
-T randomIntInRng(T n, T m) {
-  return std::uniform_int_distribution<T>{n, m}(rng);
-}
-
 uint8_t distUint8() {
   return randomIntInRng<uint8_t>(std::numeric_limits<uint8_t>::min(),
                                  std::numeric_limits<uint8_t>::max());
@@ -39,9 +34,14 @@ uint32_t distUint32() {
   return randomIntInRng<uint32_t>(std::numeric_limits<uint32_t>::min(),
                                   std::numeric_limits<uint32_t>::max());
 }
+uint32_t distUint64() {
+  return randomIntInRng<uint64_t>(std::numeric_limits<uint64_t>::min(),
+                                  std::numeric_limits<uint64_t>::max());
+}
 uint8_t dist1to99() { return randomIntInRng<uint8_t>((uint8_t)1, (uint8_t)99); }
 
 PubKey GenerateRandomPubKey() { return PubKey(PrivKey()); }
+PubKey generateRandomPubKey(PrivKey privK) { return PubKey(privK); }
 
 Peer GenerateRandomPeer() {
   uint128_t ip_address = distUint32();

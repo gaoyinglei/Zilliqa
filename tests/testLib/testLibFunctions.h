@@ -32,12 +32,17 @@
 static std::mt19937 rng;
 
 template <typename T>
-T randomIntInRng(T n, T m);
+T randomIntInRng(T n, T m) {
+  return std::uniform_int_distribution<T>{n, m}(rng);
+}
+
 uint8_t dist1to99();
 uint16_t distUint16();
 uint32_t distUint32();
+uint32_t distUint64();
 
 PubKey GenerateRandomPubKey();
+PubKey generateRandomPubKey(PrivKey);
 Peer GenerateRandomPeer();
 DSBlockHeader GenerateRandomDSBlockHeader();
 MicroBlockHeader GenerateRandomMicroBlockHeader();
