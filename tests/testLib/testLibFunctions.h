@@ -41,14 +41,16 @@ uint16_t distUint16();
 uint32_t distUint32();
 uint32_t distUint64();
 
-PubKey GenerateRandomPubKey();
+using KeyPair = std::pair<PrivKey, PubKey>;
+PubKey generateRandomPubKey();
 PubKey generateRandomPubKey(PrivKey);
-Peer GenerateRandomPeer();
-DSBlockHeader GenerateRandomDSBlockHeader();
-MicroBlockHeader GenerateRandomMicroBlockHeader();
-TxBlockHeader GenerateRandomTxBlockHeader();
-VCBlockHeader GenerateRandomVCBlockHeader();
-FallbackBlockHeader GenerateRandomFallbackBlockHeader();
-CoSignatures GenerateRandomCoSignatures();
+KeyPair generateKeyPair();
+Peer generateRandomPeer();
+DSBlockHeader generateRandomDSBlockHeader();
+MicroBlockHeader generateRandomMicroBlockHeader();
+TxBlockHeader generateRandomTxBlockHeader();
+VCBlockHeader generateRandomVCBlockHeader();
+FallbackBlockHeader generateRandomFallbackBlockHeader();
+CoSignatures generateRandomCoSignatures();
 
 #endif /* TESTS_TESTLIB_TESTFUNCTIONSLIB_H_ */
