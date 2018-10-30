@@ -41,7 +41,9 @@ uint32_t distUint64() {
 uint8_t dist1to99() { return randomIntInRng<uint8_t>((uint8_t)1, (uint8_t)99); }
 
 PubKey generateRandomPubKey() { return PubKey(PrivKey()); }
+
 PubKey generateRandomPubKey(PrivKey privK) { return PubKey(privK); }
+
 KeyPair generateKeyPair(){
   PrivKey privk;
   return KeyPair(privk, generateRandomPubKey(privk));

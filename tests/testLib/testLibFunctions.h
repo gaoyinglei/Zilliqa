@@ -45,6 +45,7 @@ using KeyPair = std::pair<PrivKey, PubKey>;
 PubKey generateRandomPubKey();
 PubKey generateRandomPubKey(PrivKey);
 KeyPair generateKeyPair();
+PubKey generateRandomPubKey();
 Peer generateRandomPeer();
 DSBlockHeader generateRandomDSBlockHeader();
 MicroBlockHeader generateRandomMicroBlockHeader();
