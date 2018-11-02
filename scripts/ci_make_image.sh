@@ -26,6 +26,13 @@
 
 set -e
 
+# arguments and default values
+jobs=2
+scilla="false"
+
+
+
+
 docker --version
 aws --version
 
@@ -36,7 +43,7 @@ region_id=us-west-2
 registry_url=${account_id}.dkr.ecr.${region_id}.amazonaws.com/zilliqa:${commit}
 
 eval $(aws ecr get-login --no-include-email --region ${region_id})
-docker build --build-arg COMMIT=${commit} --build-arg JOBS=${jobs} -t zilliqa:${commit} docker
+docker build --build-arg BASE_IMAGE= --build-arg COMMIT=${commit} --build-arg JOBS=${jobs} -t zilliqa:${commit} docker
 docker build -t ${registry_url} -<<EOF
 FROM zilliqa:${commit}
 RUN apt-get update && apt-get install -y --no-install-recommends \

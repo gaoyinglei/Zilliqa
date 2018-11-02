@@ -1,5 +1,6 @@
 # escape=\
-FROM zilliqa/mongodb
+ARG BASE_IMAGE=ubuntu:16.04
+FROM ${BASE_IMAGE}
 
 #--------------------------------------------------------------------
 # PACKAGES
@@ -41,7 +42,6 @@ ARG INSTALL_DIR=/usr/local
 ARG BUILD_TYPE=RelWithDebInfo
 ARG JOBS=2
 
-# FIXME: see issue https://github.com/Zilliqa/Zilliqa/issues/240
 RUN git clone --recursive ${REPO} ${SOURCE_DIR} && \
     git -C ${SOURCE_DIR} checkout ${COMMIT} && \
     mkdir $BUILD_DIR && cd $BUILD_DIR && \
